@@ -8,15 +8,15 @@
     <TableRow
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:weightSum="7"
+        android:weightSum="10"
         android:paddingTop="0dip" android:layout_gravity="top"
         android:background="?attr/selectableItemBackground"
         >
         <android.support.v4.widget.CircleImageView
             android:id="@+id/chatImage"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_width="match_parent"
-            android:layout_weight="5"
+            android:layout_weight="8"
             />
         <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"

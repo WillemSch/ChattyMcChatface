@@ -26,40 +26,28 @@ public class ChatButtonAdapter extends BaseAdapter implements View.OnClickListen
     private static LayoutInflater inflater;
     public Resources res;
     private Activity activity;
-    private List<String> addresses;
-    private List<String> hosts;
     private ListModel tempValues = null;
 
     public ChatButtonAdapter(Activity a, Resources resLocal) {
         activity = a;
         res = resLocal;
-        hosts = new ArrayList<>();
-        addresses = new ArrayList<>();
         inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-    public ChatButtonAdapter(Activity a, Resources resLocal, List<String> addresses, List<String> hosts) throws ArraySizeNotEqualException {
-        if (addresses.size() == hosts.size()) {
-            activity = a;
-            res = resLocal;
-            this.addresses = addresses;
-            this.hosts = hosts;
-            inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        } else {
-            //throw new ArraySizeNotEqualException("The addresses list has to be of the same size as the hosts list.");
-        }
+    public ChatButtonAdapter(Activity a, Resources resLocal, List<String> addresses, List<String> hosts) {
+        activity = a;
+        res = resLocal;
+        inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
     public int getCount() {
-        if (addresses.size() <= 0)
-            return 1;
-        return addresses.size();
+        return 0;
     }
 
     @Override
     public String[] getItem(int position) {
-        return new String[]{hosts.get(position), addresses.get(position)};
+        return new String[]{};
     }
 
     @Override
@@ -72,35 +60,10 @@ public class ChatButtonAdapter extends BaseAdapter implements View.OnClickListen
         View vi = convertView;
         ViewHolder holder;
 
-        if (convertView == null) {
-            vi = inflater.inflate(R.layout.listitem, null);
-
-            holder = new ViewHolder();
-            holder.host = (TextView) vi.findViewById(R.id.host);
-            holder.address = (TextView) vi.findViewById(R.id.address);
-
-            vi.setTag(holder);
-        } else {
-            holder = (ViewHolder) vi.getTag();
-        }
-
-        if (addresses.size() <= 0) {
-            holder.host.setText("No Hosts");
-            holder.address.setText("Searching...");
-        } else {
-            tempValues = new ListModel(hosts.get(position), addresses.get(position));
-
-            holder.host.setText(tempValues.getHost());
-            holder.address.setText(tempValues.getAddress());
-
-            vi.setOnClickListener(new OnItemClickListener(position));
-        }
         return vi;
     }
 
     public void addItem(String host, String address) {
-        hosts.add(host);
-        addresses.add(address);
     }
 
     @Override
@@ -122,8 +85,6 @@ public class ChatButtonAdapter extends BaseAdapter implements View.OnClickListen
 
         @Override
         public void onClick(View v) {
-            MainActivity root = (MainActivity) activity;
-            root.onItemClick(position);
         }
     }
 }
